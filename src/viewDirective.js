@@ -15,13 +15,16 @@ function $ViewDirective(   $state,   $compile,   $controller,   $injector,   $an
             onloadExp = attr.onload || '',
             animate = isDefined($animator) && $animator(scope, attr);
 
-        transclude(scope, function (clone) {
-          if (animate) {
-            animate.enter(clone, element);
-          } else {
-            element.html(clone);
-          }
-        });
+        // transclude(scope, function (clone) {
+        //   if (animate) {
+        //     animate.enter(clone, element);
+        //   } else {
+        //     element.append(clone);
+        //   }
+        // });
+
+        // Put back compiled initial view
+        element.append(transclude(scope));
 
         // Find the details of the parent view directive (if any) and use it
         // to derive our own qualified view name, then hang our own details
@@ -83,13 +86,21 @@ function $ViewDirective(   $state,   $compile,   $controller,   $injector,   $an
             view.state = null;
 
             // Restore initial view
-            transclude(scope, function (clone) {
-              if (animate) {
-                animate.enter(clone, element);
-              } else {
-                element.html(clone);
-              }
-            });
+
+            // transclude(scope, function (clone) {
+            //   if (animate && doAnimate) {
+            //     animate.enter(clone, element);
+            //   } else {
+            //     element.append(clone);
+            //   }
+            // });
+
+            var compiledElem = transclude(scope);
+            if (animate && doAnimate) {
+              animate.enter(compiledElem, element);
+            } else {
+              element.append(compiledElem);
+            }
           }
         }
       };

@@ -201,12 +201,15 @@ angular.module('sample', ['ui.compat'])
           url: '/empty',
           templateUrl: 'empty.html',
           controller: ['$scope', '$state', function ($scope, $state) {
-            $scope.emptyText = "Empty Super View";
-            $scope.fillView = function($event) {
+            // Using an object to access it via ng-model from child scope
+            $scope.data = {
+              emptyText: "Empty Super View"
+            }
+            $scope.changeEmptyText = function($event) {
               $state.transitionTo('empty.withcontent');
             };
-            $scope.yes = function($event) {
-              alert('Yes!');
+            $scope.backToEmptyView = function($event) {
+              $state.transitionTo('empty');
             };
           }]
         })
@@ -214,7 +217,7 @@ angular.module('sample', ['ui.compat'])
           url: '/content',
           views: {
             'emptycontent': {
-              template: 'Filled'
+              templateUrl: 'empty.content.html'
             }
           }
         });

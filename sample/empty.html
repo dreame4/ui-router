@@ -1,8 +1,5 @@
-<div>This view contains an empty view</div>
-<hr>
+<div>This view contains a nested view below</div>
 <div ui-view="emptycontent">
-	<h3>{{emptyText}}</h3>
-	<button class="btn btn-mini" ng-click="yes($event)">Rly?</button>
+	<h3>{{data.emptyText}}</h3>
+	<p><button class="btn" ng-click="changeEmptyText($event)">Change</button></p>
 </div>
-<hr>
-<button class="btn" ng-click="fillView($event)">Fill the Empty View</button>
