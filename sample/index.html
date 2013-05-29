@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" ng-app="sample"><head>
   <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="bootstrap.min.css"> 
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
   <style type="text/css">
     .fade-enter-setup, .fade-leave-setup {
       transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
@@ -17,7 +17,7 @@
   </style>
   <script src="../lib/angular-1.1.4.js"></script>
   <script src="../build/angular-ui-router.js"></script>
-  
+
   <!-- could easily use a custom property of the state here instead of 'name' -->
   <title ng-bind="$state.current.name + ' - ui-router'">ui-router</title>
 </head><body>
@@ -27,6 +27,7 @@
     <ul class="nav">
       <li ng-class="{ active: $state.includes('contacts') }"><a href="#/contacts">Contacts</a></li>
       <li ng-class="{ active: $state.includes('about') }"><a href="#/about">About</a></li>
+      <li ng-class="{ active: $state.includes('empty') }"><a href="#/empty">Empty</a></li>
     </ul>
     <p class="navbar-text pull-right" ui-view="hint"></p>
   </div></div>
@@ -195,6 +196,27 @@ angular.module('sample', ['ui.compat'])
             function ($timeout) {
               return $timeout(function () { return "Hello world" }, 100);
             }],
+        })
+        .state('empty', {
+          url: '/empty',
+          templateUrl: 'empty.html',
+          controller: ['$scope', '$state', function ($scope, $state) {
+            $scope.emptyText = "Empty Super View";
+            $scope.fillView = function($event) {
+              $state.transitionTo('empty.withcontent');
+            };
+            $scope.yes = function($event) {
+              alert('Yes!');
+            };
+          }]
+        })
+        .state('empty.withcontent', {
+          url: '/content',
+          views: {
+            'emptycontent': {
+              template: 'Filled'
+            }
+          }
         });
     }])
     .run(
