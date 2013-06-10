@@ -200,20 +200,22 @@ angular.module('sample', ['ui.compat'])
         .state('empty', {
           url: '/empty',
           templateUrl: 'empty.html',
-          controller: ['$scope', '$state', function ($scope, $state) {
-            // Using an object to access it via ng-model from child scope
-            $scope.data = {
-              emptyText: "Empty Super View"
-            }
-            $scope.changeEmptyText = function($event) {
-              $state.transitionTo('empty.withcontent');
-            };
-            $scope.backToEmptyView = function($event) {
-              $state.transitionTo('empty');
-            };
+          controller:
+            [        '$scope', '$state',
+            function ($scope,   $state) {
+              // Using an object to access it via ng-model from child scope
+              $scope.data = {
+                initialViewTitle: "I am an initial view"
+              }
+              $scope.changeInitialViewTitle = function($event) {
+                $state.transitionTo('empty.emptycontent');
+              };
+              $scope.showInitialView = function($event) {
+                $state.transitionTo('empty');
+              };
           }]
         })
-        .state('empty.withcontent', {
+        .state('empty.emptycontent', {
           url: '/content',
           views: {
             'emptycontent': {
