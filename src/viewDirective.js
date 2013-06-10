@@ -15,15 +15,7 @@ function $ViewDirective(   $state,   $compile,   $controller,   $injector,   $an
             onloadExp = attr.onload || '',
             animate = isDefined($animator) && $animator(scope, attr);
 
-        // transclude(scope, function (clone) {
-        //   if (animate) {
-        //     animate.enter(clone, element);
-        //   } else {
-        //     element.append(clone);
-        //   }
-        // });
-
-        // Put back compiled initial view
+        // Put back the compiled initial view
         element.append(transclude(scope));
 
         // Find the details of the parent view directive (if any) and use it
@@ -85,16 +77,7 @@ function $ViewDirective(   $state,   $compile,   $controller,   $injector,   $an
             viewLocals = null;
             view.state = null;
 
-            // Restore initial view
-
-            // transclude(scope, function (clone) {
-            //   if (animate && doAnimate) {
-            //     animate.enter(clone, element);
-            //   } else {
-            //     element.append(clone);
-            //   }
-            // });
-
+            // Restore the initial view
             var compiledElem = transclude(scope);
             if (animate && doAnimate) {
               animate.enter(compiledElem, element);
@@ -104,7 +87,7 @@ function $ViewDirective(   $state,   $compile,   $controller,   $injector,   $an
           }
         }
       };
-    },
+    }
   };
   return directive;
 }
